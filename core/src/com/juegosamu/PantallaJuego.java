@@ -51,11 +51,12 @@ public class PantallaJuego extends Pantalla {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         if(Gdx.app.getType() == Application.ApplicationType.Desktop){
-            jugador = new Jugador(Gdx.graphics.getWidth()/2,64,naveFrame[0].getRegionWidth(),naveFrame[0].getRegionHeight());
+            jugador = new Jugador(Gdx.graphics.getWidth()/2,64);
             //stage
         } else{
-            jugador = new Jugador(Gdx.graphics.getWidth()/2,0,naveFrame[0].getRegionWidth(),naveFrame[0].getRegionHeight());
+            jugador = new Jugador(Gdx.graphics.getWidth()/2,0);
         }
+        stage.addActor(jugador);
 
 
 
@@ -69,10 +70,10 @@ public class PantallaJuego extends Pantalla {
         super.render(delta);
         batch.begin();
         //duracion += delta;
-        ia(delta);
-        TextureRegion frame = (TextureRegion) nave.getKeyFrame(jugador.incrementarDuracion(delta),true);
-        batch.draw(frame,jugador.getX(),jugador.getY());
-        batch.draw(flecha,0,0,32,32,64,64,1,1,1,false);
+        stage.act();
+        stage.draw();
+
+        //batch.draw(flecha,0,0,32,32,64,64,1,1,1,false);
         batch.end();
 
     }
