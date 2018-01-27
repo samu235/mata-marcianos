@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.juegosamu.personajes.Jugador;
 
@@ -49,6 +51,7 @@ public class PantallaJuego extends Pantalla {
     public void show() {
         super.show();
         stage = new Stage();
+        //stage.
         Gdx.input.setInputProcessor(stage);
         if(Gdx.app.getType() == Application.ApplicationType.Desktop){
             jugador = new Jugador(Gdx.graphics.getWidth()/2,64);
@@ -57,6 +60,8 @@ public class PantallaJuego extends Pantalla {
             jugador = new Jugador(Gdx.graphics.getWidth()/2,0);
         }
         stage.addActor(jugador);
+        stage.setKeyboardFocus(jugador);
+
 
 
 
@@ -66,14 +71,15 @@ public class PantallaJuego extends Pantalla {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl.glClearColor(0.5f,0.5f,0.5f,1);
+        Gdx.gl.glClearColor(0f,0f,0f,1);
         super.render(delta);
+        if(Math.floor(Math.random()*100) > 20){
+
+        }
         batch.begin();
         //duracion += delta;
         stage.act();
         stage.draw();
-
-        //batch.draw(flecha,0,0,32,32,64,64,1,1,1,false);
         batch.end();
 
     }
