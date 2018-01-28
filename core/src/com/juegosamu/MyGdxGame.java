@@ -9,6 +9,7 @@ public class MyGdxGame extends Game {
 	Texture texture;
 	MataMarcianos hgame;
 
+
 	@Override
 	public void create () {
 		//batch = new SpriteBatch();

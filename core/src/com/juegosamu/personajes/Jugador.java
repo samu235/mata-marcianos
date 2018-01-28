@@ -62,10 +62,10 @@ public class Jugador extends Actor {
             @Override
             public boolean keyUp(InputEvent event, int keycode) {
                 switch (keycode){
-                    case Input.Keys.RIGHT:
+                    case Input.Keys.D:
                         velocidad.x = 0;
                         break;
-                    case Input.Keys.LEFT:
+                    case Input.Keys.A:
                         velocidad.x = 0;
                         break;
                     case Input.Keys.SPACE:
@@ -78,10 +78,10 @@ public class Jugador extends Actor {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 switch (keycode){
-                    case Input.Keys.RIGHT:
+                    case Input.Keys.D:
                         velocidad.x = speedMax;
                         break;
-                    case Input.Keys.LEFT:
+                    case Input.Keys.A:
                         velocidad.x = -speedMax;
                         break;
                 }

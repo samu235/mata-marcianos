@@ -7,10 +7,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.juegosamu.personajes.Bala;
 import com.juegosamu.personajes.Jugador;
+import com.juegosamu.personajes.Marciano1;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by samue on 26/01/2018.
@@ -53,6 +62,8 @@ public class PantallaJuego extends Pantalla {
         stage = new Stage();
         //stage.
         Gdx.input.setInputProcessor(stage);
+        Marciano1 aux = new Marciano1(100,Gdx.graphics.getHeight()/2);
+        stage.addActor(aux);
         if(Gdx.app.getType() == Application.ApplicationType.Desktop){
             jugador = new Jugador(Gdx.graphics.getWidth()/2,64);
             //stage
@@ -73,9 +84,34 @@ public class PantallaJuego extends Pantalla {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0f,0f,0f,1);
         super.render(delta);
-        if(Math.floor(Math.random()*100) > 20){
-
+        //comprovamos colisiones
+        Array<Actor> actores = stage.getActors();
+        Iterator i =  actores.iterator();
+        List<Marciano1> listaMarcianos1 = new ArrayList<Marciano1>();
+        List<Bala> listaBalas = new ArrayList<Bala>();
+        if(Math.floor(Math.random()*1000) < 20){
+            float aux = (float)Math.floor(Math.random()*stage.getWidth());
+            stage.addActor(new Marciano1(aux, stage.getHeight())) ;
         }
+        while (i.hasNext()){
+            Actor actor = (Actor) i.next();
+            if(actor.getClass() == Marciano1.class){
+                listaMarcianos1.add((Marciano1) actor);
+
+            }else if(actor.getClass() == Bala.class){
+                listaBalas.add((Bala)actor);
+            }
+        }
+        for (Marciano1 mar:listaMarcianos1) {
+            for(Bala bal:listaBalas){
+                if(mar.getRectangle().overlaps(bal.getRectangle())){
+                    mar.kill();
+                    bal.kill();
+                }
+            }
+        }
+
+
         batch.begin();
         //duracion += delta;
         stage.act();
